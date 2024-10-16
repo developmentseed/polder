@@ -18,87 +18,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  prep:
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-
-      - name: Install
-        run: yarn install
-
-  lint:
-    needs: prep
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-
-      - name: Install
-        run: yarn install
-        working-directory: ./webapp
-
-      - name: Lint
-        run: yarn lint
-        working-directory: ./webapp
-
-  # Docker container build
   build:
-    needs: prep
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-
-      - name: Install
-        run: yarn install
-        working-directory: ./webapp
+        uses: actions/checkout@v2
 
       - name: Build container
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64
-          context: .
-          file: dockerfiles/Dockerfile
-          push: false
+          context: ./webapp/
+          file: ./webapp/Dockerfile
+          push: true
           tags: "polder:dev"
