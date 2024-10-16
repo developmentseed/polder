@@ -1,0 +1,10 @@
+{
+    "source": "CDSE_S5p",
+    "indicator": "L2_NO2",
+    "start_date": "2019-01-01",
+    "end_date": "2024-10-16",
+    "output_path": "data/S5pL2NO2/",
+    "tile_resolution": "512",
+    "grid_division": "10",
+    "time_step": "1D"
+}
