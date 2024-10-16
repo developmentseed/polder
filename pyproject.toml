@@ -1,5 +1,5 @@
 [project]
-name = "titiler"
+name = "polder"
 description = "A simple web service to create maps and viewer using eoAPI"
 readme = "README.md"
 requires-python = ">=3.8"

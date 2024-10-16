@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, InputProps, keyframes } from '@chakra-ui/react';
+import { Input, InputProps } from '@chakra-ui/react';
+import { keyframes } from '@emotion/react';
 
 import {
   StressedField,
