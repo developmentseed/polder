@@ -1,3 +1,7 @@
+.idea
+helm/Chart.lock
+.DS_STORE
+.DS_Store
+
 # Dependency directories
 node_modules/
-

@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: "1.27.2"
+
+service:
+  enabled: true
+  name: polder-webapp
+  type: NodePort
+  ports:
+    - port: 8081
+      targetPort: 80
+      nodePort: 30001
+  selector:
+    app: polder-webapp
+
+resources: {}
