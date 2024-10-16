@@ -3,18 +3,18 @@ import { createColorPalette } from './color-palette';
 
 const theme = {
   colors: {
-    primary: createColorPalette('#1E7BC6'),
-    secondary: createColorPalette('#5FAD56'),
-    base: createColorPalette('#2B2D42'),
+    primary: createColorPalette('#6C7F2A'),
+    secondary: createColorPalette('#3AAFB9'),
+    base: createColorPalette('#3D4018'),
     danger: createColorPalette('#D65108'),
     warning: createColorPalette('#EFA00B'),
-    success: createColorPalette('#5FAD56'),
-    info: createColorPalette('#1E7BC6'),
+    success: createColorPalette('#539772'),
+    info: createColorPalette('#3AAFB9'),
     surface: createColorPalette('#FFF')
   },
   fonts: {
-    body: 'Red Hat Text, serif',
-    heading: 'Red Hat Display, sans-serif'
+    body: 'Nunito Sans, serif',
+    heading: 'Nunito Sans, sans-serif'
   },
   fontSizes: {
     xs: '0.75rem',

@@ -1,10 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import {
-  Box,
-  Divider,
-  Flex,
-  useDisclosure
-} from '@chakra-ui/react';
+import { Box, Divider, Flex, useDisclosure } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
 
 import Logo from './logo';
@@ -56,8 +51,12 @@ export default function PageHeader(props: PageHeaderProps) {
         gap={4}
         alignItems='center'
       >
-        <SmartLink to='?about' onClick={onDrawerOpen}>
-          <Logo width={20} height='22px' />
+        <SmartLink
+          to='?about'
+          onClick={onDrawerOpen}
+          _hover={{ textDecoration: 'none' }}
+        >
+          <Logo width='24px' height='24px' />
         </SmartLink>
         {renderHeading && (
           <>
