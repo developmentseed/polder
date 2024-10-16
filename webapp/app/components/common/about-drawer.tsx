@@ -24,36 +24,24 @@ export default function AboutDrawer(props: AboutDrawerProps) {
         <DrawerCloseButton />
         <DrawerHeader>About</DrawerHeader>
         <DrawerBody display='flex' flexFlow='column' gap={4}>
-          <Heading as='h2'>
-            Welcome to the Water Health Indicator Service
-          </Heading>
+          <Heading as='h2'>Welcome to Poldre</Heading>
           <p>
-            Our service provides a continuously updated data stream about the
-            environmental health of inland water bodies.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+            rhoncus ipsum et quam iaculis sodales.
           </p>
 
           <p>
-            The service is an API that provides monitoring and reporting
-            capabilities that allow private sector and public agencies to track
-            a set of specialised and highly descriptive Water Health Indicators.
-            Indicators will be physical descriptions derived from satellite
-            remote sensing, such as water extent, turbidity, chlorophyll
-            concentration, and evapotranspiration.
+            Fusce ornare, velit ac ultrices pretium, nibh odio finibus odio, eu
+            pretium orci sapien in ipsum. Suspendisse dictum luctus arcu id
+            dignissim. Cras lobortis mi neque, nec suscipit felis tempus et.
+            Suspendisse hendrerit sem tortor, vel mollis nunc convallis eget.
           </p>
 
           <p>
-            One key advantage of EO-derived indicators is that they are
-            harmonised in time and space. They are computed with the same
-            underlying method and based on the same input data, regardless of
-            the observation date or geographic location.
-          </p>
-
-          <p>
-            Sources like the Harmonized Landsat Sentinel-2 (HLS) dataset help
-            make the indicators consistent without the usual overhead of massive
-            data processing. This property makes the indicators compatible and
-            comparable against each other without the usual overhead of massive
-            data processing.
+            Fusce fermentum in enim non vehicula. Curabitur sapien nunc,
+            pharetra nec congue sed, lobortis quis orci. Donec consequat congue
+            laoreet. Morbi euismod dapibus mi, sed convallis ipsum pulvinar
+            viverra.
           </p>
         </DrawerBody>
       </DrawerContent>
