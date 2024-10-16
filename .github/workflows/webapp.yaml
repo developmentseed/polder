@@ -57,7 +57,6 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         id: cache-node-modules
-        working-directory: ./webapp
         with:
           path: node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
@@ -87,7 +86,6 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         id: cache-node-modules
-        working-directory: ./webapp
         with:
           path: node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
