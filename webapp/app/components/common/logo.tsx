@@ -25,7 +25,7 @@ export default function Logo(props: ChakraProps) {
         />
       </chakra.svg>
       <Text fontWeight='800' color='base.500'>
-        Poldre
+        Polder
       </Text>
     </Flex>
   );
