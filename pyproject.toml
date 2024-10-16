@@ -1,0 +1,44 @@
+[project]
+name = "titiler"
+description = "A simple web service to create maps and viewer using eoAPI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com"},
+    {name = "Ricardo Mestre", email = "ricardo@developmentseed.com"},
+    {name = "Daniel Da Silva", email = "daniel@developmentseed.com"},
+    {name = "Ciaran Sweet", email = "ciaran@developmentseed.com"},
+    {name = "Olaf Veerman", email = "olaf@developmentseed.com"},
+    {name = "Felix Delattre", email = "felix@developmentseed.com"},
+]
+keywords = [
+    "COG",
+    "STAC",
+    "MosaicJSON",
+    "Fastapi",
+    "eoAPI"
+]
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+version="0.0.1"
+dependencies = [
+]
+
+[project.urls]
+Homepage = 'https://developmentseed.org/polder/'
+Documentation = "https://developmentseed.org/polder/"
+Issues = "https://github.com/developmentseed/polder/issues"
+Source = "https://github.com/developmentseed/polder"
+Changelog = "https://developmentseed.org/polder/release-notes/"
+
