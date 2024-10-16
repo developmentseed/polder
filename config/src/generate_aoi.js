@@ -1,28 +1,26 @@
 const fs = require('fs-extra');
-const turf = require
+const reproject = require('reproject');
+const epsg = require('epsg');
 
 async function main() {
   const started = Date.now();
 
   const rawNuts = await fs.readJSON('./NUTS_RG_20M_2024_3857.geojson')
-  const aoi = rawNuts.features.filter(ft =>
-    ft.properties.NUTS_ID.includes(
-      'BE1',
-      'DE7',
-      'ES3',
-      'FRK',
-      'PT1',
-      'EL3',
-      'UKK'
-    )
-  )
+  const aoiIds = [ 'BE1', 'DE7', 'ES3', 'FRK', 'PT1', 'EL3', 'UKK' ]
 
-  await fs.writeJSON('../aoi.geojson', 
-    { 
-      ...rawNuts,
-      features: aoi
+  const geojson = {
+    ...rawNuts,
+    features: rawNuts.features
+      .filter(ft => ft.properties.LEVL_CODE === 1)
+      .filter(ft => aoiIds.includes(ft.properties.NUTS_ID))
     }
-  )
+
+  const reprojectedGeojson = reproject.toWgs84(geojson, undefined, epsg)
+
+  await fs.writeJSON('../aoi.geojson', {
+    type: 'FeatureCollection',
+    features: reprojectedGeojson.features
+  })
   return started;
 }
 
