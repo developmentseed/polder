@@ -26,7 +26,7 @@ export function AreaTitle(props: AreaTitleProps) {
         {!isRoot && <CollecticonChevronLeftSmall />} {name}
       </SmartLink>
       {!!volume && (
-        <Badge>
+        <Badge colorScheme='base'>
           {volume} hm<sup>3</sup>
         </Badge>
       )}

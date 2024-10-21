@@ -63,6 +63,7 @@ export function MapOptionsDrawer(props: MapOptionsDrawerProps) {
               True color image
             </FormLabel>
             <Switch
+              colorScheme='base'
               id='true-color'
               isChecked={optTrueColor}
               onChange={() => {
@@ -86,6 +87,7 @@ export function MapOptionsDrawer(props: MapOptionsDrawerProps) {
               Processed image
             </FormLabel>
             <Switch
+              colorScheme='base'
               id='process-color'
               isChecked={optProcessed}
               onChange={() => {
@@ -104,6 +106,7 @@ export function MapOptionsDrawer(props: MapOptionsDrawerProps) {
               Terrain elevation
             </FormLabel>
             <Switch
+              colorScheme='base'
               id='terrain'
               isChecked={optTerrain}
               onChange={() => {

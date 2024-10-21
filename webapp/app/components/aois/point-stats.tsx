@@ -7,6 +7,8 @@ import { format } from 'date-fns/format.js';
 
 import { PointStatsPopover } from './point-stats-popover';
 
+import config from '$utils/config';
+
 const markerPulse = keyframes`
   0%   {
     opacity: 0;
@@ -54,7 +56,7 @@ export function PointStats(props: PointStatsProps) {
         setData({ state: 'loading', data: null });
         const cogUrl = getCogUrl(lakeId, indicatorId, date);
         const stats = await axios.get(
-          `${process.env.TILER_API}/cog/point/${lngLat?.join(',')}?url=${cogUrl}`
+          `${config.TILER_API}/cog/point/${lngLat?.join(',')}?url=${cogUrl}`
         );
         const prevMeasurement = await searchPrevMeasurement(
           lakeId,
@@ -163,7 +165,7 @@ async function searchPrevMeasurement(
     };
 
     const candidatesData = await axios.post(
-      `${process.env.STAC_API}/search`,
+      `${config.STAC_API}/search`,
       candidateQuery
     );
 
@@ -176,7 +178,7 @@ async function searchPrevMeasurement(
         const cogUrl = getCogUrl(lakeId, indicatorId, date);
         try {
           const stats = await axios.get(
-            `${process.env.TILER_API}/cog/point/${lngLat?.join(',')}?url=${cogUrl}`
+            `${config.TILER_API}/cog/point/${lngLat?.join(',')}?url=${cogUrl}`
           );
           return {
             date,

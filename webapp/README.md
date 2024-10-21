@@ -33,9 +33,38 @@ These files are used to simplify the configuration of the app and should not con
 
 Run the project locally by copying the `.env` to `.env.local` and setting the following environment variables:
 
+|                   |                                         |
+| ----------------- | --------------------------------------- |
+| `APP_TITLE`       | Application title (For meta tags)       |
+| `APP_DESCRIPTION` | Application description (For meta tags) |
+| `PUBLIC_URL`      | Full url for the app                    |
+| `MAPBOX_TOKEN`    | Mapbox token                            |
+| `STAC_API`        | STAC API endpoint                       |
+| `TILER_API`       | TILER API endpoint                      |
 
-| --- | --- |
-| `{{VARIABLE}}` | {{description}} |
+### Runtime configuration
+It is possible to change some configuration after the app is built by providing the configuration via the `app_config.js` file.
+
+The file should be placed in the root of the `dist` directory and should contain a single object:
+
+```js
+window.__APP_CONFIG__ = {
+  {{VARIABLE}}: {{value}}
+};
+```
+A JSON object can also be used but needs to be converted to an object.
+
+```js
+window.__APP_CONFIG__ = JSON.parse('{{JSON_STRING}}');
+```
+
+The following variables can be changed at runtime, while the other ones are needed during the build process:
+|                |                    |
+| -------------- | ------------------ |
+| `MAPBOX_TOKEN` | Mapbox token       |
+| `STAC_API`     | STAC API endpoint  |
+| `TILER_API`    | TILER API endpoint |
+
 
 ### Starting the app
 

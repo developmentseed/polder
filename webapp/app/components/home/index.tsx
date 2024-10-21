@@ -19,6 +19,7 @@ import { Layer, Map, Source, useMap } from 'react-map-gl';
 import centroid from '@turf/centroid';
 import bbox from '@turf/bbox';
 
+import config from '$utils/config';
 import SmartLink from '$components/common/smart-link';
 import { FeatureProperties } from '$utils/loaders';
 import { AreaTitle } from '$components/common/area-title';
@@ -49,7 +50,7 @@ export function Component() {
       <Box as='main' flex='1'>
         <Map
           {...viewState}
-          mapboxAccessToken={process.env.MAPBOX_TOKEN}
+          mapboxAccessToken={config.MAPBOX_TOKEN}
           style={{ inset: '0', position: 'absolute' }}
           mapStyle='mapbox://styles/devseed/cm2bn62f500px01pe9wrl0igs'
           maxBounds={[
@@ -148,7 +149,7 @@ function LakeList(props: LakeListProps) {
             width='18rem'
             fontSize='sm'
             fontWeight='600'
-            bg={`url('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/[${bbox(f).join(',')}]/288x152@2x?access_token=${process.env.MAPBOX_TOKEN}')`}
+            bg={`url('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/[${bbox(f).join(',')}]/288x152@2x?access_token=${config.MAPBOX_TOKEN}')`}
             bgSize='cover'
             color='surface.500'
             to={`/aois/${f.id}`}

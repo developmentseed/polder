@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button,
+  // Button,
   Flex,
   Heading,
   IconButton,
@@ -19,72 +19,71 @@ import {
 } from '@devseed-ui/collecticons-chakra';
 
 import { CopyField } from '$components/common/copy-field';
-import { IndicatorDataRaw } from '$utils/loaders';
+// import { IndicatorDataRaw } from '$utils/loaders';
 
-const indicatorData2CSV = (data) => {
-  const columns = [
-    { id: 'date', fn: (d) => d.date.toISOString() },
-    'percent_valid_in_water_body',
-    'chlorophyll.mean',
-    'chlorophyll.stddev',
-    'chlorophyll.minimum',
-    'chlorophyll.maximum',
-    'tsm.mean',
-    'tsm.stddev',
-    'tsm.minimum',
-    'tsm.maximum'
-  ];
+// const indicatorData2CSV = (data) => {
+//   const columns = [
+//     { id: 'date', fn: (d) => d.date.toISOString() },
+//     'percent_valid_in_water_body',
+//     'chlorophyll.mean',
+//     'chlorophyll.stddev',
+//     'chlorophyll.minimum',
+//     'chlorophyll.maximum',
+//     'tsm.mean',
+//     'tsm.stddev',
+//     'tsm.minimum',
+//     'tsm.maximum'
+//   ];
 
-  const header = columns
-    .map((c) => (typeof c === 'string' ? c : c.id))
-    .join(',');
+//   const header = columns
+//     .map((c) => (typeof c === 'string' ? c : c.id))
+//     .join(',');
 
-  const rows = data.map((row) => {
-    const values = columns.map((col) => {
-      const getter =
-        typeof col === 'string'
-          ? // quick get value from nested object
-            (r) => col.split('.').reduce((acc, segment) => acc[segment], r)
-          : col.fn;
-      return getter(row);
-    });
-    return values.join(',');
-  });
+//   const rows = data.map((row) => {
+//     const values = columns.map((col) => {
+//       const getter =
+//         typeof col === 'string'
+//           ? // quick get value from nested object
+//             (r) => col.split('.').reduce((acc, segment) => acc[segment], r)
+//           : col.fn;
+//       return getter(row);
+//     });
+//     return values.join(',');
+//   });
 
-  const csv = `${header}\n${rows.join('\n')}`;
-  return csv;
-};
+//   const csv = `${header}\n${rows.join('\n')}`;
+//   return csv;
+// };
 
-// Function to handle the download action
-const handleDownload = (data) => {
-  // Generate CSV content from data
-  const csvContent = indicatorData2CSV(data);
+// // Function to handle the download action
+// const handleDownload = (data) => {
+//   // Generate CSV content from data
+//   const csvContent = indicatorData2CSV(data);
 
-  // Convert the CSV content to a Blob
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+//   // Convert the CSV content to a Blob
+//   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 
-  // Create a URL for the Blob
-  const url = URL.createObjectURL(blob);
+//   // Create a URL for the Blob
+//   const url = URL.createObjectURL(blob);
 
-  // Create an anchor element and trigger the download
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', 'data.csv'); // Name the file here
-  document.body.appendChild(link);
-  link.click();
+//   // Create an anchor element and trigger the download
+//   const link = document.createElement('a');
+//   link.href = url;
+//   link.setAttribute('download', 'data.csv'); // Name the file here
+//   document.body.appendChild(link);
+//   link.click();
 
-  // Clean up by revoking the Blob URL and removing the anchor element
-  URL.revokeObjectURL(url);
-  link.remove();
-};
+//   // Clean up by revoking the Blob URL and removing the anchor element
+//   URL.revokeObjectURL(url);
+//   link.remove();
+// };
 
 interface ShareOptionsProps {
-  indicatorData: IndicatorDataRaw[];
   tileEndpoint: string;
 }
 
 export function ShareOptions(props: ShareOptionsProps) {
-  const { indicatorData, tileEndpoint } = props;
+  const { tileEndpoint } = props;
 
   return (
     <Popover placement='bottom-end'>
@@ -93,6 +92,7 @@ export function ShareOptions(props: ShareOptionsProps) {
           aria-label='Indicator settings'
           size='xs'
           variant='ghost'
+          colorScheme='base'
           icon={<CollecticonShare />}
           ml='auto'
         />
@@ -109,14 +109,6 @@ export function ShareOptions(props: ShareOptionsProps) {
             >
               Share
             </Text>
-            <Flex gap={2} direction='column'>
-              <Heading size='xs' as='p'>
-                Export
-              </Heading>
-              <Button size='sm' onClick={() => handleDownload(indicatorData)}>
-                Timeline Data (CSV)
-              </Button>
-            </Flex>
             <Flex gap={2} direction='column'>
               <Heading size='xs' as='p'>
                 Tile endpoint

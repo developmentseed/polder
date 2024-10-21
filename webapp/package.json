@@ -100,7 +100,8 @@
     "use-pan-and-zoom": "^0.6.5"
   },
   "parcelIgnore": [
-    ".*/meta/"
+    ".*/meta/",
+    ".*/app_config.js"
   ],
   "alias": {
     "$components": "~/app/components",
