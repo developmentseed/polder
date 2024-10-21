@@ -1,9 +1,7 @@
 import React from 'react';
-import { chakra, ChakraProps, Flex, Text, useToken } from '@chakra-ui/react';
+import { chakra, ChakraProps, Flex, Text } from '@chakra-ui/react';
 
 export default function Logo(props: ChakraProps) {
-  const [colorPrimary] = useToken('colors', ['primary.500']);
-
   return (
     <Flex gap={2} alignItems='center'>
       <chakra.svg
@@ -25,7 +23,7 @@ export default function Logo(props: ChakraProps) {
         />
       </chakra.svg>
       <Text fontWeight='800' color='base.500'>
-        Poldre
+        Polder
       </Text>
     </Flex>
   );
