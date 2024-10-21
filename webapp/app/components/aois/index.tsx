@@ -32,11 +32,12 @@ import { DataIndicator, IndicatorLegend } from './data-indicator';
 import { PointStats } from './point-stats';
 import { ShareOptions } from './share-options';
 
-import { AreaTitle } from '$components/common/area-title';
+import config from '$utils/config';
 import {
   IndicatorProperties,
   FeatureProperties
 } from '$utils/loaders';
+import { AreaTitle } from '$components/common/area-title';
 import { FloatBox } from '$components/common/shared';
 import { Timeline } from '$components/common/timeline';
 import { DatePicker } from '$components/common/calendar';
@@ -173,7 +174,7 @@ function LakesSingle(props: LakesLoaderData) {
         daysToRequest.forEach((day) => {
           dataFetcher.fetchData({
             key: ['lakes', lake.properties.idhidro, day.toISOString()],
-            url: `${process.env.STAC_API}/collections/whis-lakes-labelec-scenes-c2rcc/items/${lake.properties.idhidro}_${format(day, 'yyyyMMdd')}`
+            url: `${config.STAC_API}/collections/whis-lakes-labelec-scenes-c2rcc/items/${lake.properties.idhidro}_${format(day, 'yyyyMMdd')}`
           });
         });
       }, 500),
@@ -258,7 +259,7 @@ function LakesSingle(props: LakesLoaderData) {
     [lake]
   );
 
-  const lakeIndicatorTileUrl = `${process.env.TILER_API}/collections/whis-lakes-labelec-scenes-c2rcc/items/${itemId}/tiles/{z}/{x}/{y}?assets=${activeIndicator.id}&rescale=${[valueMin, valueMax].join(',')}&colormap_name=${colorName}`;
+  const lakeIndicatorTileUrl = `${config.TILER_API}/collections/whis-lakes-labelec-scenes-c2rcc/items/${itemId}/tiles/{z}/{x}/{y}?assets=${activeIndicator.id}&rescale=${[valueMin, valueMax].join(',')}&colormap_name=${colorName}`;
 
   return (
     <>
@@ -295,7 +296,7 @@ function LakesSingle(props: LakesLoaderData) {
           onOptionChange={onMapOptionChange}
         />
         <Map
-          mapboxAccessToken={process.env.MAPBOX_TOKEN}
+          mapboxAccessToken={config.MAPBOX_TOKEN}
           initialViewState={{
             bounds: lake.bbox as LngLatBoundsLike,
             fitBoundsOptions: {
@@ -330,7 +331,7 @@ function LakesSingle(props: LakesLoaderData) {
           <Source
             type='raster'
             tiles={[
-              `${process.env.TILER_API}/collections/whis-lakes-labelec-scenes-c2rcc/items/${itemId}/tiles/{z}/{x}/{y}?assets=TCI`
+              `${config.TILER_API}/collections/whis-lakes-labelec-scenes-c2rcc/items/${itemId}/tiles/{z}/{x}/{y}?assets=TCI`
             ]}
           >
             <Layer

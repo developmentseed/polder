@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { Feature, FeatureCollection, MultiPolygon } from 'geojson';
 import { defer } from 'react-router-dom';
+
 import { round } from './format';
+
+import config from '$utils/config';
 
 interface StacSearchResponse
   extends FeatureCollection<MultiPolygon, FeatureProperties> {
@@ -69,7 +72,7 @@ export interface IndicatorProperties {
 export async function requestLakes() {
   const dataPromise = async () => {
     const data = await axios.get<StacSearchResponse>(
-      `${process.env.STAC_API}/collections/whis-lakes-labelec-features-c2rcc/items?limit=100`
+      `${config.STAC_API}/collections/whis-lakes-labelec-features-c2rcc/items?limit=100`
     );
 
     return data.data;
@@ -88,7 +91,7 @@ export async function requestSingleLake({
   const dataPromise = async () => {
     try {
       const { data: lakeData } = await axios.get<StacItemResponse>(
-        `${process.env.STAC_API}/collections/whis-lakes-labelec-features-c2rcc/items/${params.id}`,
+        `${config.STAC_API}/collections/whis-lakes-labelec-features-c2rcc/items/${params.id}`,
         {
           signal: request.signal
         }
