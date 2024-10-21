@@ -119,7 +119,6 @@ export async function requestSingleLake({
 
       return {
         lake: lakeData,
-        indicatorData: values,
         indicators: [
           {
             id: 'chlorophyll',

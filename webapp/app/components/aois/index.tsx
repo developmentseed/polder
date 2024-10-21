@@ -23,7 +23,7 @@ import Map, { Layer, Source } from 'react-map-gl';
 import { CollecticonIsoStack } from '@devseed-ui/collecticons-chakra';
 import debounce from 'lodash.debounce';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
-import { add, eachDayOfInterval, isWithinInterval } from 'date-fns';
+import { add, eachDayOfInterval } from 'date-fns';
 import { format } from 'date-fns/format.js';
 
 import { useSettings } from './settings';
@@ -35,8 +35,7 @@ import { ShareOptions } from './share-options';
 import { AreaTitle } from '$components/common/area-title';
 import {
   IndicatorProperties,
-  FeatureProperties,
-  IndicatorDataRaw
+  FeatureProperties
 } from '$utils/loaders';
 import { FloatBox } from '$components/common/shared';
 import { Timeline } from '$components/common/timeline';
@@ -73,7 +72,6 @@ const dataFetcher = new DataFetcher<CogStatistics>();
 interface LakesLoaderData {
   lake: Feature<MultiPolygon, FeatureProperties>;
   indicators: IndicatorProperties[];
-  indicatorData: IndicatorDataRaw[];
 }
 
 export function Component() {
@@ -105,11 +103,10 @@ export function Component() {
       }
     >
       <Await resolve={promise.data}>
-        {({ lake, indicators, indicatorData }) => (
+        {({ lake, indicators }) => (
           <LakesSingle
             lake={lake}
             indicators={indicators}
-            indicatorData={indicatorData}
           />
         )}
       </Await>
@@ -120,7 +117,7 @@ export function Component() {
 Component.displayName = 'LakesComponent';
 
 function LakesSingle(props: LakesLoaderData) {
-  const { lake, indicators, indicatorData } = props;
+  const { lake, indicators } = props;
 
   const [params, setSearchParams] = useSearchParams();
   const ind = params.get('ind');
@@ -284,10 +281,7 @@ function LakesSingle(props: LakesLoaderData) {
               pointerEvents='all'
             />
             <Divider orientation='vertical' />
-            <ShareOptions
-              indicatorData={indicatorData}
-              tileEndpoint={lakeIndicatorTileUrl}
-            />
+            <ShareOptions tileEndpoint={lakeIndicatorTileUrl} />
           </>
         )}
       />
@@ -384,21 +378,20 @@ function LakesSingle(props: LakesLoaderData) {
                 maxDate={domain[1]}
                 selectedDay={selectedDay}
                 onDaySelect={setSelectedDay}
-                getAllowedDays={useCallback(
-                  ({ firstDay, lastDay }) => {
-                    const days = indicatorData
-                      .filter((d) =>
-                        isWithinInterval(d.date, {
-                          start: firstDay,
-                          end: lastDay
-                        })
-                      )
-                      .map((d) => d.date);
-
-                    return Promise.resolve(days);
-                  },
-                  [indicatorData]
-                )}
+                // getAllowedDays={useCallback(
+                //   ({ firstDay, lastDay }) => {
+                //     const days = indicatorData
+                //       .filter((d) =>
+                //         isWithinInterval(d.date, {
+                //           start: firstDay,
+                //           end: lastDay
+                //         })
+                //       )
+                //       .map((d) => d.date);
+                //     return Promise.resolve(days);
+                //   },
+                //   []
+                // )}
               />
               <Box>
                 <Slider

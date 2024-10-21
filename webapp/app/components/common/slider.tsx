@@ -30,6 +30,7 @@ export function Slider(props: {
         variant='ghost'
         size='sm'
         borderRadius='md'
+        colorScheme='base'
         aria-label='Show preview dates'
         onClick={() => actions.stepTo(value - DAY_WIDTH)}
       >
@@ -59,6 +60,7 @@ export function Slider(props: {
         variant='ghost'
         size='sm'
         borderRadius='md'
+        colorScheme='base'
         aria-label='Show next dates'
         onClick={() => actions.stepTo(value + DAY_WIDTH)}
       >

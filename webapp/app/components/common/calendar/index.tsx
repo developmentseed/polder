@@ -115,6 +115,7 @@ export function DatePicker(props: DatePickerProps) {
           size='md'
           variant='ghost'
           borderRadius='md'
+          colorScheme='base'
           textTransform='none'
           rightIcon={<CollecticonChevronDownSmall />}
           isActive={isOpen}
