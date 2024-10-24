@@ -1,6 +1,0 @@
-dependencies:
-- name: eoapi
-  repository: https://devseed.com/eoapi-k8s/
-  version: 0.4.17
-digest: sha256:adbb8a0db399bf32efbf12ffafafbf07c6d4f676f78b2bf2aa6befdc5f1a4f51
-generated: "2024-10-16T11:33:15.655622351+02:00"

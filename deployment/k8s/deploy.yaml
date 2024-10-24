@@ -1,0 +1,105 @@
+---
+# Extendable account (kind of a user) running the setup
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-polder
+  labels:
+    app.kubernetes.io/name: polder
+automountServiceAccountToken: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-polder-configmap
+data:
+  app_config.js: |
+    window.__APP_CONFIG__ = {
+        MAPBOX_TOKEN: "pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q",
+        STAC_API: "https://rx3hna9pbg.execute-api.eu-central-1.amazonaws.com",
+        TILER_API: "https://zbrrek3x0i.execute-api.eu-central-1.amazonaws.com",
+        PIPPO: "PLUTO"
+    };
+---
+# Public facing proxy
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-polder
+  labels:
+    app.kubernetes.io/name: polder
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: polder
+---
+# Magic sauce. Defines the what in the template wrapped into a deployment manager
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-polder
+  labels:
+    app.kubernetes.io/name: polder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: polder
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: polder
+    spec:
+      serviceAccountName: test-polder
+      securityContext:
+        {}
+      containers:
+        - name: polder
+          securityContext:
+            {}
+          image: "ghcr.io/developmentseed/polder:dev"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+          volumeMounts:
+            - name: test-polder-config
+              mountPath: /usr/share/nginx/html/app_config.js
+              subPath: app_config.js
+      volumes:
+        - name: test-polder-config
+          configMap:
+            name: test-polder-configmap
+---
+# Simple pod to test whether the deployment is working successfully
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "test-polder-test-connection"
+  labels:
+    helm.sh/chart: polder-0.1.0
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['test-polder:80']
+  restartPolicy: Never
