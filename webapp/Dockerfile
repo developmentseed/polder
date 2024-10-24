@@ -8,4 +8,4 @@ RUN ls -la .
 
 FROM nginx:alpine
 COPY --from=build /src/dist /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 80
