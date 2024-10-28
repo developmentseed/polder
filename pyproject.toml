@@ -31,7 +31,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: GIS",
 ]
-version="0.0.1"
+version="0.2.0"
 dependencies = [
 ]
 
@@ -41,4 +41,3 @@ Documentation = "https://developmentseed.org/polder/"
 Issues = "https://github.com/developmentseed/polder/issues"
 Source = "https://github.com/developmentseed/polder"
 Changelog = "https://developmentseed.org/polder/release-notes/"
-

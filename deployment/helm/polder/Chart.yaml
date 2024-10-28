@@ -1,0 +1,24 @@
+apiVersion: v2
+name: polder
+description: Create a polder - Web AOI viewer - instance.
+
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "0.2.0"
+
+dependencies:
+  - name: eoapi
+    version: 0.4.17
+    repository: "https://devseed.com/eoapi-k8s/"
+  - name: webapp-polder
+    version: 0.1.0
+    repository: file://../webapp-polder

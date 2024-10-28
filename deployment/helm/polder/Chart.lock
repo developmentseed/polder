@@ -1,0 +1,9 @@
+dependencies:
+- name: eoapi
+  repository: https://devseed.com/eoapi-k8s/
+  version: 0.4.17
+- name: webapp-polder
+  repository: file://../webapp-polder
+  version: 0.1.0
+digest: sha256:42a9ad509dc7c456f1d479cff6085182c439b28d02a50497dc5de373b8d89247
+generated: "2024-10-28T17:29:59.493228222+01:00"
