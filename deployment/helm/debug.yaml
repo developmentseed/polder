@@ -1,0 +1,106 @@
+---
+# Source: webapp-polder/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-webapp-polder
+  labels:
+    helm.sh/chart: webapp-polder-0.1.0
+    app.kubernetes.io/name: webapp-polder
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+---
+# Source: webapp-polder/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-webapp-polder
+  labels:
+    helm.sh/chart: webapp-polder-0.1.0
+    app.kubernetes.io/name: webapp-polder
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: webapp-polder
+    app.kubernetes.io/instance: test
+---
+# Source: webapp-polder/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-webapp-polder
+  labels:
+    helm.sh/chart: webapp-polder-0.1.0
+    app.kubernetes.io/name: webapp-polder
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webapp-polder
+      app.kubernetes.io/instance: test
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: webapp-polder-0.1.0
+        app.kubernetes.io/name: webapp-polder
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/version: "0.1.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: test-webapp-polder
+      securityContext:
+        {}
+      containers:
+        - name: webapp-polder
+          securityContext:
+            {}
+          image: "nginx:0.1.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+---
+# Source: webapp-polder/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "test-webapp-polder-test-connection"
+  labels:
+    helm.sh/chart: webapp-polder-0.1.0
+    app.kubernetes.io/name: webapp-polder
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['test-webapp-polder:80']
+  restartPolicy: Never

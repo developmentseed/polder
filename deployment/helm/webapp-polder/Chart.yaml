@@ -1,21 +1,24 @@
 apiVersion: v2
-name: polder
-description: Create a polder - Web AOI viewer - instance.
+name: webapp-polder
+description: A Helm chart for Polder Web Application
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
-kubeVersion: ">=1.23.0-0"
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: "0.0.1"
+version: 0.1.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.0.1"
-
-dependencies:
-  - name: eoapi
-    version: 0.4.17
-    repository: "https://devseed.com/eoapi-k8s/"
+appVersion: "0.2.0"
