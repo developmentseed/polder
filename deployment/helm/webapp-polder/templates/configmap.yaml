@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-polder-configmap
+  labels:
+    {{- include "webapp-polder.labels" . | nindent 4 }}
+data: {{ with .Values.config }}
+      {{- toYaml . | nindent 2}}
+      {{- end }}

@@ -8,9 +8,28 @@ metadata:
     helm.sh/chart: webapp-polder-0.1.0
     app.kubernetes.io/name: webapp-polder
     app.kubernetes.io/instance: test
-    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/version: "0.2.0"
     app.kubernetes.io/managed-by: Helm
 automountServiceAccountToken: true
+---
+# Source: webapp-polder/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-polder-configmap
+  labels:
+    helm.sh/chart: webapp-polder-0.1.0
+    app.kubernetes.io/name: webapp-polder
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "0.2.0"
+    app.kubernetes.io/managed-by: Helm
+data: 
+  app_config.js: |
+    window.__APP_CONFIG__ = {
+          MAPBOX_TOKEN: "pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q",
+          STAC_API: "https://rx3hna9pbg.execute-api.eu-central-1.amazonaws.com",
+          TILER_API: "https://zbrrek3x0i.execute-api.eu-central-1.amazonaws.com",
+    };
 ---
 # Source: webapp-polder/templates/service.yaml
 apiVersion: v1
@@ -21,7 +40,7 @@ metadata:
     helm.sh/chart: webapp-polder-0.1.0
     app.kubernetes.io/name: webapp-polder
     app.kubernetes.io/instance: test
-    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/version: "0.2.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -43,7 +62,7 @@ metadata:
     helm.sh/chart: webapp-polder-0.1.0
     app.kubernetes.io/name: webapp-polder
     app.kubernetes.io/instance: test
-    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/version: "0.2.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -57,7 +76,7 @@ spec:
         helm.sh/chart: webapp-polder-0.1.0
         app.kubernetes.io/name: webapp-polder
         app.kubernetes.io/instance: test
-        app.kubernetes.io/version: "0.1.0"
+        app.kubernetes.io/version: "0.2.0"
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: test-webapp-polder
@@ -67,7 +86,7 @@ spec:
         - name: webapp-polder
           securityContext:
             {}
-          image: "nginx:0.1.0"
+          image: "ghcr.io/developmentseed/polder:dev"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -83,6 +102,14 @@ spec:
               port: http
           resources:
             {}
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/app_config.js
+              name: webapp-polder-config
+              subPath: app_config.js
+      volumes:
+        - configMap:
+            name: webapp-polder-configmap
+          name: webapp-polder-config
 ---
 # Source: webapp-polder/templates/tests/test-connection.yaml
 apiVersion: v1
@@ -93,7 +120,7 @@ metadata:
     helm.sh/chart: webapp-polder-0.1.0
     app.kubernetes.io/name: webapp-polder
     app.kubernetes.io/instance: test
-    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/version: "0.2.0"
     app.kubernetes.io/managed-by: Helm
   annotations:
     "helm.sh/hook": test

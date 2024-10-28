@@ -104,14 +104,20 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
+volumes:
+  - name: webapp-polder-config
+    configMap:
+      name: webapp-polder-configmap
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+volumeMounts:
+  - name: webapp-polder-config
+    mountPath: /usr/share/nginx/html/app_config.js
+    subPath: app_config.js
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
@@ -121,3 +127,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+config:
+  app_config.js: |
+    window.__APP_CONFIG__ = {
+          MAPBOX_TOKEN: "pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q",
+          STAC_API: "https://rx3hna9pbg.execute-api.eu-central-1.amazonaws.com",
+          TILER_API: "https://zbrrek3x0i.execute-api.eu-central-1.amazonaws.com",
+    };
