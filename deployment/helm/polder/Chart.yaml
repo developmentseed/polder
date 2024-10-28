@@ -18,7 +18,7 @@ appVersion: "0.2.0"
 dependencies:
   - name: eoapi
     version: 0.4.17
-    repository: "https://devseed.com/eoapi-k8s/"
+    repository: file://../../../../eoapi-k8s/helm-chart/eoapi
   - name: webapp-polder
     version: 0.1.0
     repository: file://../webapp-polder

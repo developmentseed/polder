@@ -1,9 +1,9 @@
 dependencies:
 - name: eoapi
-  repository: https://devseed.com/eoapi-k8s/
+  repository: file://../../../../eoapi-k8s/helm-chart/eoapi
   version: 0.4.17
 - name: webapp-polder
   repository: file://../webapp-polder
   version: 0.1.0
-digest: sha256:42a9ad509dc7c456f1d479cff6085182c439b28d02a50497dc5de373b8d89247
-generated: "2024-10-28T17:29:59.493228222+01:00"
+digest: sha256:741e369774038ff3d8472321587b8871f12dd6a493dcf34a98fa0127239ea1b4
+generated: "2024-10-28T17:58:18.317209662+01:00"
