@@ -4,6 +4,10 @@ metadata:
   name: webapp-polder-configmap
   labels:
     {{- include "webapp-polder.labels" . | nindent 4 }}
-data: {{ with .Values.config }}
-      {{- toYaml . | nindent 2}}
-      {{- end }}
+data:
+    app_config.js: |
+      window.__APP_CONFIG__ = {
+          MAPBOX_TOKEN: {{ .Values.mapboxToken }},
+          STAC_API: {{ .Values.stacApiUrl }},
+          TILER_API: {{ .Values.tilerApiUrl }},
+      };
