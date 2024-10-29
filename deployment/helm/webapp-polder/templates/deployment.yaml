@@ -46,14 +46,20 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+          {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
+            - name: {{ include "webapp-polder.fullname" . }}-config
+              mountPath: /usr/share/nginx/html/app_config.js
+              subPath: app_config.js
       volumes:
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
+        - name: {{ include "webapp-polder.fullname" . }}-config
+          configMap:
+            name: {{ include "webapp-polder.fullname" . }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "webapp-polder.fullname" . }}-configmap
+data:
+  app_config.js: |
+    window.__APP_CONFIG__ = {
+        MAPBOX_TOKEN: "{{ .Values.mapboxToken }}",
+        STAC_API: "{{ .Values.stacApi }}",
+        TILER_API: "{{ .Values.tilerApi }}",
+    };
