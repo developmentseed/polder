@@ -13,6 +13,9 @@ on:
       - '.github/workflows/check_charts.yaml'
   pull_request:
 
+env:
+  PGO_CHART_VERSION: 5.7.0
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -58,12 +61,12 @@ jobs:
       - name: Run chart-testing (lint)
         run: ct lint --chart-dirs deployment/helm --target-branch ${{ github.event.repository.default_branch }}
 
-      - name: Build container
+      - name: Build webapp container
         uses: docker/build-push-action@v6
         if: steps.list-changed.outputs.changed == 'true'
         with:
           platforms: linux/amd64
-          context: .
+          context: webapp
           file: webapp/Dockerfile
           push: false
           tags: "polder:dev"
@@ -72,10 +75,14 @@ jobs:
         uses: helm/kind-action@v1.10.0
         if: steps.list-changed.outputs.changed == 'true'
 
+       # Install postgres operator
+      - name: Install postgres operator
+        run: helm install --set disable_check_for_upgrades=true pgo oci://registry.developers.crunchydata.com/crunchydata/pgo --version ${PGO_CHART_VERSION}
+
       - name: Load container image in kind cluster
         run: kind load docker-image polder:dev --name chart-testing
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --chart-dirs deployment/k8s
+        run: ct install --chart-dirs deployment/helm --target-branch ${{ github.event.repository.default_branch }}
         if: steps.list-changed.outputs.changed == 'true'

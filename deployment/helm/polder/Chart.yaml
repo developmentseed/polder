@@ -15,6 +15,14 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "0.2.0"
 
+maintainers:
+  - name: pantierra       # Felix Delattre
+    url: https://github.com/pantierra
+  - name: emmanuelmathot  # Emmanuel Mathot
+    url: https://github.com/emmanuelmathot
+  - name: ciaransweet     # Ciaran Sweet
+    url: https://github.com/ciaransweet
+
 dependencies:
   - name: eoapi
     version: 0.5.0
