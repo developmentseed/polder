@@ -11,5 +11,5 @@ fullnameOverride: "test-polder"
 
 # polder custom configuration
 mapboxToken: ""
-stacApi: "https://rx2hna9pbg.execute-api.eu-central-1.amazonaws.com"
-tilerApi: "https://zbrrek2x0i.execute-api.eu-central-1.amazonaws.com"
+stacApi: "stac:8080"
+tilerApi: "raster:8080"
