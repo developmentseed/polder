@@ -1,0 +1,15 @@
+# Default values for polder.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 1
+
+# This is to override the chart name.
+nameOverride: "polder"
+fullnameOverride: "test-polder"
+
+# polder custom configuration
+mapboxToken: ""
+stacApi: "stac:8080"
+tilerApi: "raster:8080"
